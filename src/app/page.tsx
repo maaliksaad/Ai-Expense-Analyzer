@@ -1,5 +1,15 @@
-import Navbar from "@/components/navbar";
+import LandingPage from "@/components/landingPage";
+import { currentUser } from "@clerk/nextjs/server";
+import Dashboard from "./dashboard/page";
 
-export default function Home() {
-  return <div>Home page</div>;
+export default async function Home() {
+  const user = await currentUser();
+  if (!user) {
+    return <LandingPage />;
+  }
+  return (
+    <>
+      <Dashboard />
+    </>
+  );
 }
